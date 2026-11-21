@@ -1,3 +1,4 @@
+// Writes the brave text to /output/entry.txt.
 import * as fs from "node:fs";
 import * as path from "node:path";
 
@@ -16,4 +17,7 @@ const outDir = "/output";
 const outFile = path.join(outDir, "entry.txt");
 
 fs.mkdirSync(outDir, { recursive: true });
+if ([...text].length < 1 || [...text].length > 280) {
+  throw new Error("text must be 1..280 code points");
+}
 fs.writeFileSync(outFile, text, "utf8");
